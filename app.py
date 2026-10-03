@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Student Information System"
+    return "Student Information System v2"
 
 
 @app.route("/courses")
