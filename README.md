@@ -1,18 +1,43 @@
-# student-app
+# Студенттің жеке кабинеті
 
-Учебное Flask-приложение «Student Information System» для СӨЖ №1 (вариант 22):
-настройка публикации Docker-образа в container registry (GitHub Container Registry, ghcr.io) через GitHub Actions.
+## Сипаттамасы
 
-## Конвейер (.github/workflows/ci.yml)
+«Студенттің жеке кабинеті» — оқу веб-қосымшасы (Python Flask). Қосымша студенттің профилін және пәндер бойынша бағаларын көрсетеді. Жоба СОӨЖ (нұсқа №22) үшін әзірленген: негізгі мақсат — Install/Build → Test CI конвейерін көрсету.
 
-1. **test** — установка зависимостей и запуск `pytest`.
-2. **build-and-push** — после успешных тестов (только при push в `main`): вход в ghcr.io, сборка Docker-образа и публикация с тегами `latest` и `sha-<commit>`.
+Беттер:
 
-## Запуск образа
+- `/` — басты бет;
+- `/profile` — студент профилі (JSON);
+- `/grades` — пәндер бойынша бағалар және орташа балл (JSON);
+- `/health` — қосымшаның жұмысқа қабілеттілігін тексеру.
+
+## Қолданылатын технологиялар
+
+Python 3.11, Flask, pytest, Git, GitHub, GitHub Actions.
+
+## Орнату
 
 ```bash
-docker pull ghcr.io/yenlik-lika/student-app:latest
-docker run -p 5000:5000 ghcr.io/yenlik-lika/student-app:latest
+pip install -r requirements.txt
 ```
 
-Эндпоинты: `/`, `/courses`, `/health`.
+## Іске қосу
+
+```bash
+python app.py
+```
+
+Қосымша http://localhost:5000 мекенжайында қолжетімді болады.
+
+## Тестілеу
+
+```bash
+pytest -v
+```
+
+## CI/CD
+
+Конвейер `.github/workflows/ci.yml` файлында сипатталған және `main` тармағына әр push кезінде (және pull request кезінде) автоматты түрде іске қосылады:
+
+1. **Install / Build** — Python 3.11 орнату, тәуелділіктерді орнату, жобаны құрастыруды тексеру (`compileall`, `import app`).
+2. **Test** — `pytest -v` арқылы автоматты тесттерді орындау. Бұл кезең тек Build сәтті аяқталғанда ғана іске қосылады (`needs: build`).
