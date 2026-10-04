@@ -41,3 +41,7 @@ pytest -v
 
 1. **Install / Build** — Python 3.11 орнату, тәуелділіктерді орнату, жобаны құрастыруды тексеру (`compileall`, `import app`).
 2. **Test** — `pytest -v` арқылы автоматты тесттерді орындау. Бұл кезең тек Build сәтті аяқталғанда ғана іске қосылады (`needs: build`).
+
+## Репозиторий
+
+https://github.com/Yenlik-lika/student-app
